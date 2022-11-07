@@ -39,9 +39,9 @@ export function AuthContextProvider({ children }) {
     try {
       setIsUserLoading(true)
       await promptAsync();
-    } catch (error) {
-      console.log(error);
-      throw error;
+    } catch (err) {
+      console.log(err);
+      throw err;
     } finally {
       setIsUserLoading(false);
     }
@@ -50,7 +50,7 @@ export function AuthContextProvider({ children }) {
   async function singInWithGoogle(access_token: string) {
     try {
       setIsUserLoading(true);
-      
+
       const tokenResponse = await api.post('/users', { access_token });
       api.defaults.headers.common['Authorization'] = `Bearer ${tokenResponse.data.token}`;
 
@@ -65,10 +65,10 @@ export function AuthContextProvider({ children }) {
   }
 
   useEffect(() => {
-    if(response?.type === 'success' && response.authentication?.accessToken) {
+    if (response?.type === 'success' && response.authentication?.accessToken) {
       singInWithGoogle(response.authentication.accessToken);
     }
-  },[response])
+  }, [response])
 
   return (
     <AuthContext.Provider value={{

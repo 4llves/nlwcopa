@@ -7,14 +7,14 @@ import { api } from '../services/api';
 
 import { Button } from '../components/Button';
 import { Header } from '../components/Header';
-import { PoolCard, PoolCardPros } from '../components/PoolCard';
+import { PoolCard, PoolCardProps } from '../components/PoolCard';
 import { Loading } from '../components/Loading';
 import { EmptyPoolList } from '../components/EmptyPoolList';
 
 export function Pools() {
   const [isLoading, setIsLoading] = useState(true);
-  const [pools, setPools] = useState<PoolCardPros[]>([])
-  
+  const [pools, setPools] = useState<PoolCardProps[]>([])
+
   const { navigate } = useNavigation();
   const toast = useToast();
 
@@ -23,8 +23,8 @@ export function Pools() {
       setIsLoading(true)
       const response = await api.get('/pools');
       setPools(response.data.pools);
-    } catch (error) {
-      console.log(error);
+    } catch (err) {
+      console.log(err);
       toast.show({
         title: 'Não foi possível carregar os bolões',
         placement: 'top',
@@ -37,15 +37,15 @@ export function Pools() {
 
   useFocusEffect(useCallback(() => {
     fetchPools();
-  },[]))
+  }, []))
 
   return (
     <VStack flex={1} bgColor="gray.900">
       <Header title="MEUS BOLÕES" />
 
       <VStack mt={6} mx={5} borderBottomWidth={1} borderBottomColor="gray.600" pb={4} mb={4}>
-        <Button 
-          title="BUSCAR BOLÃO POR CÓDIGO" 
+        <Button
+          title="BUSCAR BOLÃO POR CÓDIGO"
           leftIcon={<Icon as={Octicons} name="search" color="black" size="md" />}
           onPress={() => navigate('find')}
         />
@@ -53,11 +53,11 @@ export function Pools() {
 
       {
         isLoading ? <Loading /> :
-          <FlatList 
+          <FlatList
             data={pools}
             keyExtractor={item => item.id}
             renderItem={({ item }) => (
-              <PoolCard 
+              <PoolCard
                 data={item}
                 onPress={() => navigate('details', { id: item.id })}
               />

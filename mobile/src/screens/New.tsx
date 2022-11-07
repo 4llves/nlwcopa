@@ -16,14 +16,14 @@ export function New() {
   const toast = useToast();
 
   async function handlePoolCreate() {
-    if(!title.trim()) {
+    if (!title.trim()) {
       return toast.show({
         title: 'Informer um nome para o seu bolão',
         placement: 'top',
         bgColor: 'red.500'
       })
     }
-    
+
     try {
       setIsLoading(true);
 
@@ -37,8 +37,8 @@ export function New() {
 
       setTitle('');
 
-    } catch (error) {
-      console.log(error);
+    } catch (err) {
+      console.log(err);
       toast.show({
         title: 'Não foi possível criar o bolão',
         placement: 'top',
@@ -61,7 +61,7 @@ export function New() {
           e compartilhe entre amigos!
         </Heading>
 
-        <Input 
+        <Input
           mb={2}
           placeholder="Qual o nome do seu bolão?"
           onChangeText={setTitle}
@@ -75,8 +75,8 @@ export function New() {
         />
 
         <Text color="gray.200" fontSize="sm" textAlign="center" px={10} mt={4}>
-        Após criar seu bolão, você receberá um código único
-        que poderá usar para convidar outras pessoas.
+          Após criar seu bolão, você receberá um código único
+          que poderá usar para convidar outras pessoas.
         </Text>
       </VStack>
     </VStack>

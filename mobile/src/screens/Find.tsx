@@ -11,7 +11,7 @@ import { Input } from "../components/Input";
 export function Find() {
   const [isLoading, setIsLoading] = useState(false);
   const [code, setCode] = useState('');
-  
+
   const toast = useToast();
   const { navigate } = useNavigation();
 
@@ -19,7 +19,7 @@ export function Find() {
     try {
       setIsLoading(true);
 
-      if(!code.trim()) {
+      if (!code.trim()) {
         toast.show({
           title: 'Informe o código',
           placement: 'top',
@@ -37,11 +37,11 @@ export function Find() {
 
       navigate('pools');
 
-    } catch (error) {
-      console.log(error);
+    } catch (err) {
+      console.log(err);
       setIsLoading(false);
 
-      if(error.response?.data?.message === 'Pool not found.') {
+      if (err.response?.data?.message === 'Pool not found.') {
         toast.show({
           title: 'Não foi possível encontrar o bolão',
           placement: 'top',
@@ -50,7 +50,7 @@ export function Find() {
         return;
       }
 
-      if(error.response?.data?.message === 'You already joined this poll.') {
+      if (err.response?.data?.message === 'You already joined this poll.') {
         toast.show({
           title: 'Você já está nesse bolão',
           placement: 'top',
@@ -72,7 +72,7 @@ export function Find() {
           seu código único
         </Heading>
 
-        <Input 
+        <Input
           mb={2}
           placeholder="Qual o código do bolão?"
           autoCapitalize="characters"

@@ -26,7 +26,7 @@ export function Guesses({ poolId, code }: Props) {
 
       const response = await api.get(`/pools/${poolId}/games`);
       setGames(response.data.games);
-    } catch (error) {
+    } catch (err) {
 
       toast.show({
         title: 'Não foi possível listar os jogos',
@@ -61,8 +61,8 @@ export function Guesses({ poolId, code }: Props) {
 
       fetchGames();
 
-    } catch (error) {
-      console.log(error);
+    } catch (err) {
+      console.log(err);
 
       toast.show({
         title: 'Não foi possível enviar o palpite',
